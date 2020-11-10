@@ -13,4 +13,4 @@ add_library(richgel999::miniz ALIAS miniz)
 
 target_include_directories(miniz PUBLIC
 	$<BUILD_INTERFACE:${miniz_SOURCE_DIR}>
-	$<INSTALL_INTERFACE:include/miniz>)
+	$<INSTALL_INTERFACE:include>)

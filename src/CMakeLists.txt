@@ -16,8 +16,9 @@ set_target_properties(zstream PROPERTIES
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO)
 
-target_include_directories(zstream PRIVATE
-    ../include/zstream)
+target_include_directories(zstream PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../include>
+    $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(zstream PRIVATE richgel999::miniz)
 

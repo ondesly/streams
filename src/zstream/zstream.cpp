@@ -13,7 +13,7 @@
 
 #include "miniz.h"
 
-#include "zstream.h"
+#include "zstream/zstream.h"
 
 // -- ozstream --
 
