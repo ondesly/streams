@@ -1,6 +1,6 @@
 #
 #  CMakeLists.txt
-#  zstream
+#  streams
 #
 #  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 07.11.2020.
 #  Copyright © 2020-2021 Dmitrii Torkhov. All rights reserved.
@@ -8,8 +8,8 @@
 
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-project(zstream
-        VERSION 1.0
+project(streams
+        VERSION 1.1
         LANGUAGES C CXX)
 
 ################

@@ -1,43 +1,43 @@
 #
 #  CMakeLists.txt
-#  zstream
+#  streams
 #
 #  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 07.11.2020.
 #  Copyright © 2020-2021 Dmitrii Torkhov. All rights reserved.
 #
 
-add_library(zstream STATIC
-        zstream/astream.cpp
-        zstream/bstream.cpp
-        zstream/zstream.cpp)
+add_library(streams STATIC
+        streams/astream.cpp
+        streams/bstream.cpp
+        streams/zstream.cpp)
 
-add_library(oo::zstream ALIAS zstream)
+add_library(oo::streams ALIAS streams)
 
-set_target_properties(zstream PROPERTIES
+set_target_properties(streams PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO)
 
-target_include_directories(zstream PUBLIC
+target_include_directories(streams PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../include>
         $<INSTALL_INTERFACE:include>)
 
-target_link_libraries(zstream PRIVATE miniz tiny_aes)
+target_link_libraries(streams PRIVATE miniz tiny_aes)
 
 #
 
 set(PUBLIC_HEADERS
-        ../include/zstream/astream.h
-        ../include/zstream/bstream.h
-        ../include/zstream/zstream.h)
+        ../include/streams/astream.h
+        ../include/streams/bstream.h
+        ../include/streams/zstream.h)
 
-install(TARGETS zstream miniz tiny_aes
-        EXPORT zstream-config
+install(TARGETS streams miniz tiny_aes
+        EXPORT streams-config
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin
         INCLUDES DESTINATION include)
 
-install(FILES ${PUBLIC_HEADERS} DESTINATION include/zstream)
+install(FILES ${PUBLIC_HEADERS} DESTINATION include/streams)
 
-install(EXPORT zstream-config DESTINATION lib/cmake/zstream)
+install(EXPORT streams-config DESTINATION lib/cmake/streams)

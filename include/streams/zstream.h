@@ -1,9 +1,9 @@
 //
 //  zstream.h
-//  zstream
+//  streams
 //
 //  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 30.10.2020.
-//  Copyright © 2020 Dmitrii Torkhov. All rights reserved.
+//  Copyright © 2020-2021 Dmitrii Torkhov. All rights reserved.
 //
 
 #pragma once

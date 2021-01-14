@@ -1,12 +1,12 @@
 //
 //  bstream.cpp
-//  zstream
+//  streams
 //
 //  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 14.01.2021.
 //  Copyright © 2021 Dmitrii Torkhov. All rights reserved.
 //
 
-#include "zstream/bstream.h"
+#include "streams/bstream.h"
 
 // -- obstream --
 

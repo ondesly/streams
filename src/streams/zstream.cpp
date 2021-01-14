@@ -1,9 +1,9 @@
 //
 //  zstream.cpp
-//  zstream
+//  streams
 //
 //  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 30.10.2020.
-//  Copyright © 2020 Dmitrii Torkhov. All rights reserved.
+//  Copyright © 2020-2021 Dmitrii Torkhov. All rights reserved.
 //
 
 #define MINIZ_NO_STDIO
@@ -13,7 +13,7 @@
 
 #include "miniz.h"
 
-#include "zstream/zstream.h"
+#include "streams/zstream.h"
 
 // -- ozstream --
 
