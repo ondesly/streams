@@ -21,7 +21,7 @@ target_include_directories(zstream PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../include>
         $<INSTALL_INTERFACE:include>)
 
-target_link_libraries(zstream PRIVATE richgel999::miniz tiny_aes)
+target_link_libraries(zstream PRIVATE miniz tiny_aes)
 
 #
 
