@@ -10,7 +10,7 @@ add_library(zstream STATIC
         zstream/astream.cpp
         zstream/zstream.cpp)
 
-add_library(rkhv::zstream ALIAS zstream)
+add_library(oo::zstream ALIAS zstream)
 
 set_target_properties(zstream PROPERTIES
         CXX_STANDARD 14
