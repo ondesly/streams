@@ -8,6 +8,9 @@
 
 #include <cstddef>
 
+#define ECB 0
+#define CTR 0
+
 #include <aes.hpp>
 
 #include "streams/astream.h"
