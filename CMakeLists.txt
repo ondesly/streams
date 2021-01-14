@@ -26,9 +26,15 @@ FetchContent_Declare(
     miniz
     URL		https://github.com/richgel999/miniz/releases/download/2.1.0/miniz-2.1.0.zip)
 
+FetchContent_Declare(
+        tiny-aes-c
+        GIT_REPOSITORY https://github.com/kokke/tiny-AES-c.git
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE)
+
 #
 
-FetchContent_MakeAvailable(miniz)
+FetchContent_MakeAvailable(miniz tiny-aes-c)
 
 #########
 # Build #
@@ -37,6 +43,7 @@ FetchContent_MakeAvailable(miniz)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
 find_package(Miniz REQUIRED)
+find_package(TinyAES REQUIRED)
 
 #
 
