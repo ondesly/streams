@@ -8,6 +8,7 @@
 
 add_library(zstream STATIC
         zstream/astream.cpp
+        zstream/bstream.cpp
         zstream/zstream.cpp)
 
 add_library(oo::zstream ALIAS zstream)
