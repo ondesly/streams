@@ -26,7 +26,6 @@ oo::oastream::oastream(const u_int8_t *key, const u_int8_t *iv) {
 }
 
 size_t oo::oastream::get_size() const {
-
     return m_buffer.size();
 }
 
@@ -35,7 +34,7 @@ std::vector<u_int8_t> oo::oastream::get_encoded() const {
 
     // Padding
 
-    const auto padding = uint8_t(c_block_size - (m_buffer.size() % c_block_size));
+    const auto padding = uint8_t((c_block_size - (m_buffer.size() % c_block_size)) % c_block_size);
     const auto last = result.back();
     if (padding == 0 && last < c_block_size &&
         std::all_of(result.end() - last, result.end(), [last](u_int8_t value) {
@@ -92,7 +91,7 @@ void oo::iastream::decode(const u_int8_t *next_in, unsigned int avail_in) {
     // Padding
 
     const auto last = m_buffer.back();
-    if (last < c_block_size &&
+    if (last <= c_block_size &&
         std::all_of(m_buffer.end() - last, m_buffer.end(), [last](u_int8_t value) {
             return value == last;
         })) {
