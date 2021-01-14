@@ -3,23 +3,23 @@
 #  zstream
 #
 #  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 07.11.2020.
-#  Copyright © 2020 Dmitrii Torkhov. All rights reserved.
+#  Copyright © 2020-2021 Dmitrii Torkhov. All rights reserved.
 #
 
 add_library(zstream STATIC
-    zstream/astream.cpp
-    zstream/zstream.cpp)
+        zstream/astream.cpp
+        zstream/zstream.cpp)
 
 add_library(rkhv::zstream ALIAS zstream)
 
 set_target_properties(zstream PROPERTIES
-    CXX_STANDARD 14
-    CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO)
+        CXX_STANDARD 14
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 
 target_include_directories(zstream PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../include>
-    $<INSTALL_INTERFACE:include>)
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../include>
+        $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(zstream PRIVATE richgel999::miniz tiny_aes)
 

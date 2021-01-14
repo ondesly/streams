@@ -7,7 +7,7 @@
 #
 
 add_library(tiny_aes STATIC
-	${tiny-aes-c_SOURCE_DIR}/aes.c)
+        ${tiny-aes-c_SOURCE_DIR}/aes.c)
 
 target_include_directories(tiny_aes PUBLIC
-	$<BUILD_INTERFACE:${tiny-aes-c_SOURCE_DIR}>)
+        $<BUILD_INTERFACE:${tiny-aes-c_SOURCE_DIR}>)
