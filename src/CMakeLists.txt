@@ -26,7 +26,10 @@ target_link_libraries(zstream PRIVATE miniz tiny_aes)
 
 #
 
-set(PUBLIC_HEADERS ../include/zstream/zstream.h)
+set(PUBLIC_HEADERS
+        ../include/zstream/astream.h
+        ../include/zstream/bstream.h
+        ../include/zstream/zstream.h)
 
 install(TARGETS zstream miniz tiny_aes
         EXPORT zstream-config
