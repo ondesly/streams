@@ -20,17 +20,17 @@ namespace {
 
 // -- oastream --
 
-rkhv::oastream::oastream(const u_int8_t *key, const u_int8_t *iv) {
+oo::oastream::oastream(const u_int8_t *key, const u_int8_t *iv) {
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 }
 
-size_t rkhv::oastream::get_size() const {
+size_t oo::oastream::get_size() const {
 
     return m_buffer.size();
 }
 
-std::vector<u_int8_t> rkhv::oastream::get_encoded() const {
+std::vector<u_int8_t> oo::oastream::get_encoded() const {
     std::vector<u_int8_t> result(m_buffer.begin(), m_buffer.end());
 
     // Padding
@@ -53,7 +53,7 @@ std::vector<u_int8_t> rkhv::oastream::get_encoded() const {
     return result;
 }
 
-rkhv::oastream &rkhv::oastream::operator<<(const std::string &value) {
+oo::oastream &oo::oastream::operator<<(const std::string &value) {
     *this << value.length();
 
     auto ptr = value.c_str();
@@ -64,27 +64,27 @@ rkhv::oastream &rkhv::oastream::operator<<(const std::string &value) {
     return *this;
 }
 
-void rkhv::oastream::append(u_int8_t byte) {
+void oo::oastream::append(u_int8_t byte) {
     m_buffer.push_back(byte);
 }
 
 // -- iastream --
 
-rkhv::iastream::iastream(const u_int8_t *key, const u_int8_t *iv, const std::vector<u_int8_t> &compressed) {
+oo::iastream::iastream(const u_int8_t *key, const u_int8_t *iv, const std::vector<u_int8_t> &compressed) {
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 
     decode(compressed.data(), uint32_t(compressed.size()));
 }
 
-rkhv::iastream::iastream(const u_int8_t *key, const u_int8_t *iv, const std::string &compressed) {
+oo::iastream::iastream(const u_int8_t *key, const u_int8_t *iv, const std::string &compressed) {
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 
     decode(reinterpret_cast<const u_int8_t *>(compressed.c_str()), uint32_t(compressed.length()));
 }
 
-void rkhv::iastream::decode(const u_int8_t *next_in, unsigned int avail_in) {
+void oo::iastream::decode(const u_int8_t *next_in, unsigned int avail_in) {
     m_buffer.assign(next_in, next_in + avail_in);
 
     AES_CBC_decrypt_buffer(m_aes_context.get(), m_buffer.data(), m_buffer.size());
@@ -100,11 +100,11 @@ void rkhv::iastream::decode(const u_int8_t *next_in, unsigned int avail_in) {
     }
 }
 
-size_t rkhv::iastream::get_size() const {
+size_t oo::iastream::get_size() const {
     return m_buffer.size();
 }
 
-bool rkhv::iastream::operator>>(std::string &value) {
+bool oo::iastream::operator>>(std::string &value) {
     size_t len;
     if (!(*this >> len) || len == 0) {
         return false;
@@ -117,6 +117,6 @@ bool rkhv::iastream::operator>>(std::string &value) {
     return true;
 }
 
-u_int8_t rkhv::iastream::remove() {
+u_int8_t oo::iastream::remove() {
     return m_buffer[m_index++];
 }

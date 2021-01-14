@@ -17,12 +17,12 @@
 
 // -- ozstream --
 
-size_t rkhv::ozstream::get_size() const {
+size_t oo::ozstream::get_size() const {
 
     return m_buffer.size();
 }
 
-std::vector<u_int8_t> rkhv::ozstream::get_compressed() const {
+std::vector<u_int8_t> oo::ozstream::get_compressed() const {
     auto cmp_len = compressBound(m_buffer.size());
     std::vector<u_int8_t> cmp_buf(cmp_len);
 
@@ -34,7 +34,7 @@ std::vector<u_int8_t> rkhv::ozstream::get_compressed() const {
     return cmp_buf;
 }
 
-void rkhv::ozstream::append(u_int8_t byte) {
+void oo::ozstream::append(u_int8_t byte) {
     m_buffer.push_back(byte);
 }
 
@@ -46,15 +46,15 @@ namespace {
 
 }
 
-rkhv::izstream::izstream(const std::vector<u_int8_t> &compressed) {
+oo::izstream::izstream(const std::vector<u_int8_t> &compressed) {
     decompress(compressed.data(), uint32_t(compressed.size()));
 }
 
-rkhv::izstream::izstream(const std::string &compressed) {
+oo::izstream::izstream(const std::string &compressed) {
     decompress(reinterpret_cast<const u_int8_t *>(compressed.c_str()), uint32_t(compressed.length()));
 }
 
-void rkhv::izstream::decompress(const u_int8_t *next_in, unsigned int avail_in) {
+void oo::izstream::decompress(const u_int8_t *next_in, unsigned int avail_in) {
     mz_stream stream;
     memset(&stream, 0, sizeof(stream));
 
@@ -81,10 +81,10 @@ void rkhv::izstream::decompress(const u_int8_t *next_in, unsigned int avail_in) 
     mz_inflateEnd(&stream);
 }
 
-size_t rkhv::izstream::get_size() const {
+size_t oo::izstream::get_size() const {
     return m_buffer.size();
 }
 
-u_int8_t rkhv::izstream::remove() {
+u_int8_t oo::izstream::remove() {
     return m_buffer[m_index++];
 }

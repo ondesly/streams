@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-namespace rkhv {
+namespace oo {
 
     class ozstream {
     public:
@@ -44,7 +44,7 @@ namespace rkhv {
 
 }
 
-namespace rkhv {
+namespace oo {
 
     class izstream {
     public:

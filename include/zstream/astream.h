@@ -15,7 +15,7 @@
 
 struct AES_ctx;
 
-namespace rkhv {
+namespace oo {
 
     class oastream {
     public:
@@ -54,7 +54,7 @@ namespace rkhv {
 
 }
 
-namespace rkhv {
+namespace oo {
 
     class iastream {
     public:
