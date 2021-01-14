@@ -26,11 +26,11 @@ namespace rkhv {
 
         size_t get_size() const;
 
-        std::vector<unsigned char> get_encoded() const;
+        std::vector<u_int8_t> get_encoded() const;
 
         template<class T>
         oastream &operator<<(T value) {
-            auto ptr = reinterpret_cast<unsigned char *>(&value);
+            auto ptr = reinterpret_cast<u_int8_t *>(&value);
             for (size_t i = 0; i < sizeof(T); ++i) {
                 append(ptr[i]);
             }
@@ -44,11 +44,11 @@ namespace rkhv {
 
         std::unique_ptr<AES_ctx> m_aes_context;
 
-        std::vector<unsigned char> m_buffer;
+        std::vector<u_int8_t> m_buffer;
 
     private:
 
-        void append(unsigned char byte);
+        void append(u_int8_t byte);
 
     };
 
@@ -59,7 +59,7 @@ namespace rkhv {
     class iastream {
     public:
 
-        iastream(const u_int8_t *key, const u_int8_t *iv, const std::vector<unsigned char> &compressed);
+        iastream(const u_int8_t *key, const u_int8_t *iv, const std::vector<u_int8_t> &compressed);
 
         iastream(const u_int8_t *key, const u_int8_t *iv, const std::string &compressed);
 
@@ -73,7 +73,7 @@ namespace rkhv {
                 return false;
             }
 
-            auto ptr = reinterpret_cast<unsigned char *>(&value);
+            auto ptr = reinterpret_cast<u_int8_t *>(&value);
             for (size_t i = 0; i < sizeof(T); ++i) {
                 ptr[i] = remove();
             }
@@ -88,13 +88,13 @@ namespace rkhv {
         std::unique_ptr<AES_ctx> m_aes_context;
 
         size_t m_index = 0;
-        std::vector<unsigned char> m_buffer;
+        std::vector<u_int8_t> m_buffer;
 
     private:
 
-        void decode(const unsigned char *next_in, unsigned int avail_in);
+        void decode(const u_int8_t *next_in, unsigned int avail_in);
 
-        unsigned char remove();
+        u_int8_t remove();
 
     };
 

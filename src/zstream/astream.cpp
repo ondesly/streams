@@ -30,15 +30,15 @@ size_t rkhv::oastream::get_size() const {
     return m_buffer.size();
 }
 
-std::vector<unsigned char> rkhv::oastream::get_encoded() const {
-    std::vector<unsigned char> result(m_buffer.begin(), m_buffer.end());
+std::vector<u_int8_t> rkhv::oastream::get_encoded() const {
+    std::vector<u_int8_t> result(m_buffer.begin(), m_buffer.end());
 
     // Padding
 
     const auto padding = uint8_t(c_block_size - (m_buffer.size() % c_block_size));
     const auto last = result.back();
     if (padding == 0 && last < c_block_size &&
-        std::all_of(result.end() - last, result.end(), [last](unsigned char value) {
+        std::all_of(result.end() - last, result.end(), [last](u_int8_t value) {
             return value == last;
         })) {
         result.resize(result.size() + c_block_size, c_block_size);
@@ -64,13 +64,13 @@ rkhv::oastream &rkhv::oastream::operator<<(const std::string &value) {
     return *this;
 }
 
-void rkhv::oastream::append(unsigned char byte) {
+void rkhv::oastream::append(u_int8_t byte) {
     m_buffer.push_back(byte);
 }
 
 // -- iastream --
 
-rkhv::iastream::iastream(const u_int8_t *key, const u_int8_t *iv, const std::vector<unsigned char> &compressed) {
+rkhv::iastream::iastream(const u_int8_t *key, const u_int8_t *iv, const std::vector<u_int8_t> &compressed) {
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 
@@ -81,10 +81,10 @@ rkhv::iastream::iastream(const u_int8_t *key, const u_int8_t *iv, const std::str
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 
-    decode(reinterpret_cast<const unsigned char *>(compressed.c_str()), uint32_t(compressed.length()));
+    decode(reinterpret_cast<const u_int8_t *>(compressed.c_str()), uint32_t(compressed.length()));
 }
 
-void rkhv::iastream::decode(const unsigned char *next_in, unsigned int avail_in) {
+void rkhv::iastream::decode(const u_int8_t *next_in, unsigned int avail_in) {
     m_buffer.assign(next_in, next_in + avail_in);
 
     AES_CBC_decrypt_buffer(m_aes_context.get(), m_buffer.data(), m_buffer.size());
@@ -93,7 +93,7 @@ void rkhv::iastream::decode(const unsigned char *next_in, unsigned int avail_in)
 
     const auto last = m_buffer.back();
     if (last < c_block_size &&
-        std::all_of(m_buffer.end() - last, m_buffer.end(), [last](unsigned char value) {
+        std::all_of(m_buffer.end() - last, m_buffer.end(), [last](u_int8_t value) {
             return value == last;
         })) {
         m_buffer.resize(m_buffer.size() - last);
@@ -117,6 +117,6 @@ bool rkhv::iastream::operator>>(std::string &value) {
     return true;
 }
 
-unsigned char rkhv::iastream::remove() {
+u_int8_t rkhv::iastream::remove() {
     return m_buffer[m_index++];
 }

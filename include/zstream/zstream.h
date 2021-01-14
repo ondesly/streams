@@ -20,11 +20,11 @@ namespace rkhv {
 
         size_t get_size() const;
 
-        std::vector<unsigned char> get_compressed() const;
+        std::vector<u_int8_t> get_compressed() const;
 
         template<class T>
         ozstream &operator<<(T value) {
-            auto ptr = reinterpret_cast<unsigned char *>(&value);
+            auto ptr = reinterpret_cast<u_int8_t *>(&value);
             for (size_t i = 0; i < sizeof(T); ++i) {
                 append(ptr[i]);
             }
@@ -34,11 +34,11 @@ namespace rkhv {
 
     private:
 
-        std::vector<unsigned char> m_buffer;
+        std::vector<u_int8_t> m_buffer;
 
     private:
 
-        void append(unsigned char byte);
+        void append(u_int8_t byte);
 
     };
 
@@ -49,7 +49,7 @@ namespace rkhv {
     class izstream {
     public:
 
-        izstream(const std::vector<unsigned char> &compressed);
+        izstream(const std::vector<u_int8_t> &compressed);
 
         izstream(const std::string &compressed);
 
@@ -63,7 +63,7 @@ namespace rkhv {
                 return false;
             }
 
-            auto ptr = reinterpret_cast<unsigned char *>(&value);
+            auto ptr = reinterpret_cast<u_int8_t *>(&value);
             for (size_t i = 0; i < sizeof(T); ++i) {
                 ptr[i] = remove();
             }
@@ -74,13 +74,13 @@ namespace rkhv {
     private:
 
         size_t m_index = 0;
-        std::vector<unsigned char> m_buffer;
+        std::vector<u_int8_t> m_buffer;
 
     private:
 
-        void decompress(const unsigned char *next_in, unsigned int avail_in);
+        void decompress(const u_int8_t *next_in, unsigned int avail_in);
 
-        unsigned char remove();
+        u_int8_t remove();
 
     };
 
