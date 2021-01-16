@@ -28,6 +28,8 @@ oo::oastream::oastream(const u_int8_t *key, const u_int8_t *iv) {
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 }
 
+oo::oastream::~oastream() = default;
+
 void oo::oastream::operator>>(std::vector<u_int8_t> &value) {
     value = m_buffer;
 
@@ -55,6 +57,8 @@ oo::iastream::iastream(const u_int8_t *key, const u_int8_t *iv) {
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 }
+
+oo::iastream::~iastream() = default;
 
 void oo::iastream::operator<<(const std::vector<u_int8_t> &value) {
     m_buffer = value;

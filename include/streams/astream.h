@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "streams/bstream.h"
@@ -20,6 +21,8 @@ namespace oo {
     public:
 
         oastream(const u_int8_t *key, const u_int8_t *iv);
+
+        ~oastream();
 
     public:
 
@@ -39,6 +42,8 @@ namespace oo {
     public:
 
         iastream(const u_int8_t *key, const u_int8_t *iv);
+
+        ~iastream();
 
     public:
 
