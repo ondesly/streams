@@ -25,22 +25,7 @@ oo::obstream &oo::obstream::operator<<(const std::vector<u_int8_t> &value) {
     return *this;
 }
 
-oo::obstream &oo::obstream::operator<<(const std::string &value) {
-    *this << value.length();
-
-    auto ptr = value.c_str();
-    for (size_t i = 0; i < value.length(); ++i) {
-        append(ptr[i]);
-    }
-
-    return *this;
-}
-
 void oo::obstream::operator>>(std::vector<u_int8_t> &value) {
-    value.assign(m_buffer.begin(), m_buffer.end());
-}
-
-void oo::obstream::operator>>(std::string &value) {
     value.assign(m_buffer.begin(), m_buffer.end());
 }
 
@@ -67,24 +52,7 @@ bool oo::ibstream::operator>>(std::vector<u_int8_t> &value) {
     return true;
 }
 
-bool oo::ibstream::operator>>(std::string &value) {
-    size_t len;
-    if (!(*this >> len) || len == 0) {
-        return false;
-    }
-
-    for (size_t i = 0; i < len; ++i) {
-        value += remove();
-    }
-
-    return true;
-}
-
 void oo::ibstream::operator<<(const std::vector<u_int8_t> &value) {
-    m_buffer.assign(value.begin(), value.end());
-}
-
-void oo::ibstream::operator<<(const std::string &value) {
     m_buffer.assign(value.begin(), value.end());
 }
 

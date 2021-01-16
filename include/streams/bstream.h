@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include <string>
 #include <vector>
 
 namespace oo {
@@ -32,13 +31,9 @@ namespace oo {
 
         obstream &operator<<(const std::vector<u_int8_t> &value);
 
-        obstream &operator<<(const std::string &value);
-
     public:
 
         void operator>>(std::vector<u_int8_t> &value);
-
-        void operator>>(std::string &value);
 
     private:
 
@@ -77,13 +72,9 @@ namespace oo {
 
         bool operator>>(std::vector<u_int8_t> &value);
 
-        bool operator>>(std::string &value);
-
     public:
 
         void operator<<(const std::vector<u_int8_t> &value);
-
-        void operator<<(const std::string &value);
 
     private:
 
