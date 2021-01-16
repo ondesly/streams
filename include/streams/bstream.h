@@ -21,7 +21,7 @@ namespace oo {
 
         template<class T>
         obstream &operator<<(T value) {
-            auto ptr = reinterpret_cast<u_int8_t *>(&value);
+            const auto ptr = reinterpret_cast<u_int8_t *>(&value);
             for (size_t i = 0; i < sizeof(T); ++i) {
                 append(ptr[i]);
             }
@@ -62,7 +62,7 @@ namespace oo {
                 return false;
             }
 
-            auto ptr = reinterpret_cast<u_int8_t *>(&value);
+            const auto ptr = reinterpret_cast<u_int8_t *>(&value);
             for (size_t i = 0; i < sizeof(T); ++i) {
                 ptr[i] = remove();
             }
