@@ -17,16 +17,13 @@ size_t oo::obstream::get_size() const {
 oo::obstream &oo::obstream::operator<<(const std::vector<u_int8_t> &value) {
     *this << value.size();
 
-    auto ptr = value.data();
-    for (size_t i = 0; i < value.size(); ++i) {
-        append(ptr[i]);
-    }
+    m_buffer.insert(m_buffer.end(), value.begin(), value.end());
 
     return *this;
 }
 
 void oo::obstream::operator>>(std::vector<u_int8_t> &value) {
-    value.assign(m_buffer.begin(), m_buffer.end());
+    value = m_buffer;
 }
 
 void oo::obstream::append(u_int8_t byte) {
@@ -41,19 +38,18 @@ size_t oo::ibstream::get_size() const {
 
 bool oo::ibstream::operator>>(std::vector<u_int8_t> &value) {
     size_t size;
-    if (!(*this >> size) || size == 0) {
+    if (!(*this >> size)) {
         return false;
     }
 
-    for (size_t i = 0; i < size; ++i) {
-        value.push_back(remove());
-    }
+    value.assign(m_buffer.begin() + m_index, m_buffer.begin() + m_index + size);
+    m_index += size;
 
     return true;
 }
 
 void oo::ibstream::operator<<(const std::vector<u_int8_t> &value) {
-    m_buffer.assign(value.begin(), value.end());
+    m_buffer = value;
 }
 
 u_int8_t oo::ibstream::remove() {
