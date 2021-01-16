@@ -33,9 +33,9 @@ namespace oo {
 
     public:
 
-        void operator>>(std::vector<u_int8_t> &value);
+        virtual void operator>>(std::vector<u_int8_t> &value);
 
-    private:
+    protected:
 
         std::vector<u_int8_t> m_buffer;
 
@@ -74,9 +74,9 @@ namespace oo {
 
     public:
 
-        void operator<<(const std::vector<u_int8_t> &value);
+        virtual void operator<<(const std::vector<u_int8_t> &value);
 
-    private:
+    protected:
 
         size_t m_index = 0;
         std::vector<u_int8_t> m_buffer;
