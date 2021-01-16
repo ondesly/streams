@@ -33,3 +33,16 @@ set_target_properties(test_a PROPERTIES
 target_link_libraries(test_a oo::streams)
 
 add_test(NAME TestA COMMAND test_a)
+
+# TestZ
+
+add_executable(test_z test_z.cpp)
+
+set_target_properties(test_z PROPERTIES
+        CXX_STANDARD 14
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
+
+target_link_libraries(test_z oo::streams)
+
+add_test(NAME TestZ COMMAND test_z)
