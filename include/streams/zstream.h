@@ -8,37 +8,16 @@
 
 #pragma once
 
-#include <cstddef>
-#include <stdint.h>
-#include <string>
 #include <vector>
+
+#include "streams/bstream.h"
 
 namespace oo {
 
-    class ozstream {
+    class ozstream : public obstream {
     public:
 
-        size_t get_size() const;
-
-        std::vector<u_int8_t> get_compressed() const;
-
-        template<class T>
-        ozstream &operator<<(T value) {
-            auto ptr = reinterpret_cast<u_int8_t *>(&value);
-            for (size_t i = 0; i < sizeof(T); ++i) {
-                append(ptr[i]);
-            }
-
-            return *this;
-        }
-
-    private:
-
-        std::vector<u_int8_t> m_buffer;
-
-    private:
-
-        void append(u_int8_t byte);
+        void operator>>(std::vector<u_int8_t> &value) override;
 
     };
 
@@ -46,41 +25,10 @@ namespace oo {
 
 namespace oo {
 
-    class izstream {
+    class izstream : public ibstream {
     public:
 
-        izstream(const std::vector<u_int8_t> &compressed);
-
-        izstream(const std::string &compressed);
-
-    public:
-
-        size_t get_size() const;
-
-        template<class T>
-        bool operator>>(T &value) {
-            if (m_index == m_buffer.size()) {
-                return false;
-            }
-
-            auto ptr = reinterpret_cast<u_int8_t *>(&value);
-            for (size_t i = 0; i < sizeof(T); ++i) {
-                ptr[i] = remove();
-            }
-
-            return true;
-        }
-
-    private:
-
-        size_t m_index = 0;
-        std::vector<u_int8_t> m_buffer;
-
-    private:
-
-        void decompress(const u_int8_t *next_in, unsigned int avail_in);
-
-        u_int8_t remove();
+        void operator<<(const std::vector<u_int8_t> &value) override;
 
     };
 

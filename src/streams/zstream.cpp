@@ -17,25 +17,16 @@
 
 // -- ozstream --
 
-size_t oo::ozstream::get_size() const {
-
-    return m_buffer.size();
-}
-
-std::vector<u_int8_t> oo::ozstream::get_compressed() const {
+void oo::ozstream::operator>>(std::vector<u_int8_t> &value) {
     auto cmp_len = compressBound(m_buffer.size());
-    std::vector<u_int8_t> cmp_buf(cmp_len);
+    value.resize(cmp_len);
 
-    if (compress(cmp_buf.data(), &cmp_len, m_buffer.data(), m_buffer.size()) != Z_OK) {
-        return {};
+    if (compress(value.data(), &cmp_len, m_buffer.data(), m_buffer.size()) != Z_OK) {
+        value.resize(0);
+        return;
     }
 
-    cmp_buf.resize(cmp_len);
-    return cmp_buf;
-}
-
-void oo::ozstream::append(u_int8_t byte) {
-    m_buffer.push_back(byte);
+    value.resize(cmp_len);
 }
 
 // -- izstream --
@@ -46,20 +37,12 @@ namespace {
 
 }
 
-oo::izstream::izstream(const std::vector<u_int8_t> &compressed) {
-    decompress(compressed.data(), uint32_t(compressed.size()));
-}
-
-oo::izstream::izstream(const std::string &compressed) {
-    decompress(reinterpret_cast<const u_int8_t *>(compressed.c_str()), uint32_t(compressed.length()));
-}
-
-void oo::izstream::decompress(const u_int8_t *next_in, unsigned int avail_in) {
+void oo::izstream::operator<<(const std::vector<u_int8_t> &value) {
     mz_stream stream;
     memset(&stream, 0, sizeof(stream));
 
-    stream.next_in = next_in;
-    stream.avail_in = avail_in;
+    stream.next_in = value.data();
+    stream.avail_in = uint32_t(value.size());
 
     if (mz_inflateInit(&stream) != MZ_OK) {
         return;
@@ -79,12 +62,4 @@ void oo::izstream::decompress(const u_int8_t *next_in, unsigned int avail_in) {
     } while (status == MZ_OK);
 
     mz_inflateEnd(&stream);
-}
-
-size_t oo::izstream::get_size() const {
-    return m_buffer.size();
-}
-
-u_int8_t oo::izstream::remove() {
-    return m_buffer[m_index++];
 }
