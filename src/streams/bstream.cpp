@@ -22,12 +22,12 @@ oo::obstream &oo::obstream::operator<<(const std::vector<u_int8_t> &value) {
     return *this;
 }
 
-void oo::obstream::operator>>(std::vector<u_int8_t> &value) {
-    value = m_buffer;
+void oo::obstream::operator>>(oo::obstream &stream) {
+    *this >> stream.m_buffer;
 }
 
-void oo::obstream::operator>>(oo::obstream &stream) {
-    *this >> m_buffer;
+void oo::obstream::operator>>(std::vector<u_int8_t> &value) {
+    value = m_buffer;
 }
 
 void oo::obstream::append(u_int8_t byte) {
