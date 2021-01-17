@@ -22,9 +22,7 @@ namespace oo {
         template<class T>
         obstream &operator<<(T value) {
             const auto ptr = reinterpret_cast<u_int8_t *>(&value);
-            for (size_t i = 0; i < sizeof(T); ++i) {
-                append(ptr[i]);
-            }
+            m_buffer.insert(m_buffer.end(), ptr, ptr + sizeof(T));
 
             return *this;
         }
@@ -40,10 +38,6 @@ namespace oo {
     protected:
 
         std::vector<u_int8_t> m_buffer;
-
-    private:
-
-        void append(u_int8_t byte);
 
     };
 
@@ -65,9 +59,8 @@ namespace oo {
             }
 
             const auto ptr = reinterpret_cast<u_int8_t *>(&value);
-            for (size_t i = 0; i < sizeof(T); ++i) {
-                ptr[i] = remove();
-            }
+            std::copy(m_buffer.begin() + m_index, m_buffer.begin() + m_index + sizeof(T), ptr);
+            m_index += sizeof(T);
 
             return true;
         }
@@ -84,10 +77,6 @@ namespace oo {
 
         size_t m_index = 0;
         std::vector<u_int8_t> m_buffer;
-
-    private:
-
-        u_int8_t remove();
 
     };
 

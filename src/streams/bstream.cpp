@@ -30,10 +30,6 @@ void oo::obstream::operator>>(std::vector<u_int8_t> &value) {
     value = m_buffer;
 }
 
-void oo::obstream::append(u_int8_t byte) {
-    m_buffer.push_back(byte);
-}
-
 // -- ibstream --
 
 size_t oo::ibstream::get_size() const {
@@ -59,8 +55,4 @@ void oo::ibstream::operator<<(oo::ibstream &stream) {
 void oo::ibstream::operator<<(const std::vector<u_int8_t> &value) {
     m_buffer = value;
     m_index = 0;
-}
-
-u_int8_t oo::ibstream::remove() {
-    return m_buffer[m_index++];
 }
