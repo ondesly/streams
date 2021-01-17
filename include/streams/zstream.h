@@ -17,6 +17,8 @@ namespace oo {
     class ozstream : public obstream {
     public:
 
+        using obstream::operator>>;
+
         void operator>>(std::vector<u_int8_t> &value) override;
 
     };

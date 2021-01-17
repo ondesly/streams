@@ -26,6 +26,10 @@ void oo::obstream::operator>>(std::vector<u_int8_t> &value) {
     value = m_buffer;
 }
 
+void oo::obstream::operator>>(oo::obstream &stream) {
+    *this >> m_buffer;
+}
+
 void oo::obstream::append(u_int8_t byte) {
     m_buffer.push_back(byte);
 }

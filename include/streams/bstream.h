@@ -33,6 +33,8 @@ namespace oo {
 
     public:
 
+        void operator>>(obstream &stream);
+
         virtual void operator>>(std::vector<u_int8_t> &value);
 
     protected:

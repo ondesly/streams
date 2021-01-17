@@ -26,6 +26,8 @@ namespace oo {
 
     public:
 
+        using obstream::operator>>;
+
         void operator>>(std::vector<u_int8_t> &value) override;
 
     private:
