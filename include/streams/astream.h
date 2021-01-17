@@ -49,6 +49,8 @@ namespace oo {
 
     public:
 
+        using ibstream::operator<<;
+
         void operator<<(const std::vector<u_int8_t> &value) override;
 
     private:

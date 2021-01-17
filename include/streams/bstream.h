@@ -76,6 +76,8 @@ namespace oo {
 
     public:
 
+        void operator<<(ibstream &stream);
+
         virtual void operator<<(const std::vector<u_int8_t> &value);
 
     protected:

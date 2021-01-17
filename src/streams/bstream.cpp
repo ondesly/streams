@@ -52,6 +52,10 @@ bool oo::ibstream::operator>>(std::vector<u_int8_t> &value) {
     return true;
 }
 
+void oo::ibstream::operator<<(oo::ibstream &stream) {
+    *this << stream.m_buffer;
+}
+
 void oo::ibstream::operator<<(const std::vector<u_int8_t> &value) {
     m_buffer = value;
     m_index = 0;
