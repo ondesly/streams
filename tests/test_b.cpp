@@ -17,6 +17,8 @@ namespace {
     const int16_t c_s16 = 32100;
     const int32_t c_s32 = 1234567890;
     const float c_f = 1.23456;
+    const size_t c_array_size = 10;
+    const uint8_t c_array[c_array_size] = {0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19};
 
 }
 
@@ -30,6 +32,8 @@ int main() {
     o << c_s16;
     o << c_s32;
     o << c_f;
+    o << c_array_size;
+    o << c_array;
 
     std::vector<uint8_t> encoded;
     o >> encoded;
@@ -55,7 +59,12 @@ int main() {
     i >> s32;
     i >> f;
 
+    size_t array_size;
+    i >> array_size;
+    uint8_t array[array_size];
+    i >> array;
+
     return std::equal(c_text, c_text + 26, text.data()) && c_u8 == u8 && c_u64 == u64 &&
            std::equal(c_data, c_data + 10, data.data()) && c_s16 == s16 && c_s32 == s32 &&
-           c_f == f ? 0 : 1;
+           c_f == f && std::equal(c_array, c_array + c_array_size, array) ? 0 : 1;
 }
