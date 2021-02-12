@@ -23,14 +23,14 @@ namespace {
 
 // -- oastream --
 
-oo::oastream::oastream(const u_int8_t *key, const u_int8_t *iv) {
+oo::oastream::oastream(const uint8_t *key, const uint8_t *iv) {
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 }
 
 oo::oastream::~oastream() = default;
 
-void oo::oastream::operator>>(std::vector<u_int8_t> &value) {
+void oo::oastream::operator>>(std::vector<uint8_t> &value) {
     value = m_buffer;
 
     // Padding
@@ -38,7 +38,7 @@ void oo::oastream::operator>>(std::vector<u_int8_t> &value) {
     const auto padding = uint8_t((c_block_size - (value.size() % c_block_size)) % c_block_size);
     const auto last = value.back();
     if (padding == 0 && last < c_block_size &&
-        std::all_of(value.end() - last, value.end(), [last](u_int8_t v) {
+        std::all_of(value.end() - last, value.end(), [last](uint8_t v) {
             return v == last;
         })) {
         value.resize(value.size() + c_block_size, c_block_size);
@@ -53,14 +53,14 @@ void oo::oastream::operator>>(std::vector<u_int8_t> &value) {
 
 // -- iastream --
 
-oo::iastream::iastream(const u_int8_t *key, const u_int8_t *iv) {
+oo::iastream::iastream(const uint8_t *key, const uint8_t *iv) {
     m_aes_context = std::make_unique<AES_ctx>();
     AES_init_ctx_iv(m_aes_context.get(), key, iv);
 }
 
 oo::iastream::~iastream() = default;
 
-void oo::iastream::operator<<(const std::vector<u_int8_t> &value) {
+void oo::iastream::operator<<(const std::vector<uint8_t> &value) {
     m_buffer = value;
 
     //
@@ -71,7 +71,7 @@ void oo::iastream::operator<<(const std::vector<u_int8_t> &value) {
 
     const auto last = m_buffer.back();
     if (last <= c_block_size &&
-        std::all_of(m_buffer.end() - last, m_buffer.end(), [last](u_int8_t value) {
+        std::all_of(m_buffer.end() - last, m_buffer.end(), [last](uint8_t value) {
             return value == last;
         })) {
         m_buffer.resize(m_buffer.size() - last);

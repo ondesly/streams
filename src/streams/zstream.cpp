@@ -17,7 +17,7 @@
 
 // -- ozstream --
 
-void oo::ozstream::operator>>(std::vector<u_int8_t> &value) {
+void oo::ozstream::operator>>(std::vector<uint8_t> &value) {
     auto cmp_len = compressBound(m_buffer.size());
     value.resize(cmp_len);
 
@@ -37,7 +37,7 @@ namespace {
 
 }
 
-void oo::izstream::operator<<(const std::vector<u_int8_t> &value) {
+void oo::izstream::operator<<(const std::vector<uint8_t> &value) {
     mz_stream stream;
     memset(&stream, 0, sizeof(stream));
 
@@ -49,7 +49,7 @@ void oo::izstream::operator<<(const std::vector<u_int8_t> &value) {
     }
 
     const mz_uint32 buf_len = c_default_buf_len;
-    u_int8_t buf[buf_len];
+    uint8_t buf[buf_len];
 
     int status;
     do {

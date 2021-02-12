@@ -19,7 +19,7 @@ namespace oo {
 
         using obstream::operator>>;
 
-        void operator>>(std::vector<u_int8_t> &value) override;
+        void operator>>(std::vector<uint8_t> &value) override;
 
     };
 
@@ -32,7 +32,7 @@ namespace oo {
 
         using ibstream::operator<<;
 
-        void operator<<(const std::vector<u_int8_t> &value) override;
+        void operator<<(const std::vector<uint8_t> &value) override;
 
     };
 

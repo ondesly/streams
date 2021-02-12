@@ -14,7 +14,7 @@ size_t oo::obstream::get_size() const {
     return m_buffer.size();
 }
 
-oo::obstream &oo::obstream::operator<<(const std::vector<u_int8_t> &value) {
+oo::obstream &oo::obstream::operator<<(const std::vector<uint8_t> &value) {
     *this << value.size();
 
     m_buffer.insert(m_buffer.end(), value.begin(), value.end());
@@ -34,7 +34,7 @@ void oo::obstream::operator>>(oo::obstream &stream) {
     *this >> stream.m_buffer;
 }
 
-void oo::obstream::operator>>(std::vector<u_int8_t> &value) {
+void oo::obstream::operator>>(std::vector<uint8_t> &value) {
     value = m_buffer;
 }
 
@@ -44,7 +44,7 @@ size_t oo::ibstream::get_size() const {
     return m_buffer.size();
 }
 
-bool oo::ibstream::operator>>(std::vector<u_int8_t> &value) {
+bool oo::ibstream::operator>>(std::vector<uint8_t> &value) {
     size_t size;
     if (!(*this >> size)) {
         return false;
@@ -72,7 +72,7 @@ void oo::ibstream::operator<<(oo::ibstream &stream) {
     *this << stream.m_buffer;
 }
 
-void oo::ibstream::operator<<(const std::vector<u_int8_t> &value) {
+void oo::ibstream::operator<<(const std::vector<uint8_t> &value) {
     m_buffer = value;
     m_index = 0;
 }

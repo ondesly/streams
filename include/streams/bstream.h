@@ -21,13 +21,13 @@ namespace oo {
 
         template<class T>
         obstream &operator<<(T value) {
-            const auto ptr = reinterpret_cast<u_int8_t *>(&value);
+            const auto ptr = reinterpret_cast<uint8_t *>(&value);
             m_buffer.insert(m_buffer.end(), ptr, ptr + sizeof(T));
 
             return *this;
         }
 
-        obstream &operator<<(const std::vector<u_int8_t> &value);
+        obstream &operator<<(const std::vector<uint8_t> &value);
 
         obstream &operator<<(const uint8_t *value);
 
@@ -35,11 +35,11 @@ namespace oo {
 
         void operator>>(obstream &stream);
 
-        virtual void operator>>(std::vector<u_int8_t> &value);
+        virtual void operator>>(std::vector<uint8_t> &value);
 
     protected:
 
-        std::vector<u_int8_t> m_buffer;
+        std::vector<uint8_t> m_buffer;
 
     };
 
@@ -60,14 +60,14 @@ namespace oo {
                 return false;
             }
 
-            const auto ptr = reinterpret_cast<u_int8_t *>(&value);
+            const auto ptr = reinterpret_cast<uint8_t *>(&value);
             std::copy(m_buffer.begin() + m_index, m_buffer.begin() + m_index + sizeof(T), ptr);
             m_index += sizeof(T);
 
             return true;
         }
 
-        bool operator>>(std::vector<u_int8_t> &value);
+        bool operator>>(std::vector<uint8_t> &value);
 
         bool operator>>(uint8_t *value);
 
@@ -75,12 +75,12 @@ namespace oo {
 
         void operator<<(ibstream &stream);
 
-        virtual void operator<<(const std::vector<u_int8_t> &value);
+        virtual void operator<<(const std::vector<uint8_t> &value);
 
     protected:
 
         size_t m_index = 0;
-        std::vector<u_int8_t> m_buffer;
+        std::vector<uint8_t> m_buffer;
 
     };
 

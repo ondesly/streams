@@ -20,7 +20,7 @@ namespace oo {
     class oastream : public obstream {
     public:
 
-        oastream(const u_int8_t *key, const u_int8_t *iv);
+        oastream(const uint8_t *key, const uint8_t *iv);
 
         ~oastream();
 
@@ -28,7 +28,7 @@ namespace oo {
 
         using obstream::operator>>;
 
-        void operator>>(std::vector<u_int8_t> &value) override;
+        void operator>>(std::vector<uint8_t> &value) override;
 
     private:
 
@@ -43,7 +43,7 @@ namespace oo {
     class iastream : public ibstream {
     public:
 
-        iastream(const u_int8_t *key, const u_int8_t *iv);
+        iastream(const uint8_t *key, const uint8_t *iv);
 
         ~iastream();
 
@@ -51,7 +51,7 @@ namespace oo {
 
         using ibstream::operator<<;
 
-        void operator<<(const std::vector<u_int8_t> &value) override;
+        void operator<<(const std::vector<uint8_t> &value) override;
 
     private:
 
