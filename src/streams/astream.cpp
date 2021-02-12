@@ -6,6 +6,7 @@
 //  Copyright © 2021 Dmitrii Torkhov. All rights reserved.
 //
 
+#include <algorithm>
 #include <cstddef>
 
 #define ECB 0
