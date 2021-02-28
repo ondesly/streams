@@ -20,8 +20,6 @@ set(CMAKE_XCODE_ATTRIBUTE_EXCLUDED_ARCHS[sdk=iphonesimulator*] "arm64") # Fix fo
 
 include(FetchContent)
 
-set(FETCHCONTENT_BASE_DIR ${CMAKE_CURRENT_LIST_DIR}/extern)
-
 #
 
 FetchContent_Declare(
