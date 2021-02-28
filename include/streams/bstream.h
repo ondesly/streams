@@ -13,6 +13,8 @@
 
 namespace oo {
 
+    using array_size = uint32_t;
+
     class obstream {
     public:
 

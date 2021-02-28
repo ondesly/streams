@@ -17,7 +17,7 @@ namespace {
     const int16_t c_s16 = 32100;
     const int32_t c_s32 = 1234567890;
     const float c_f = 1.23456;
-    const size_t c_array_size = 10;
+    const oo::array_size c_array_size = 10;
     const uint8_t c_array[c_array_size] = {0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19};
 
 }
@@ -59,7 +59,7 @@ int main() {
     i >> s32;
     i >> f;
 
-    size_t array_size;
+    oo::array_size array_size;
     i >> array_size;
     uint8_t array[array_size];
     i >> array;

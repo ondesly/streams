@@ -15,7 +15,7 @@ size_t oo::obstream::get_size() const {
 }
 
 oo::obstream &oo::obstream::operator<<(const std::vector<uint8_t> &value) {
-    *this << value.size();
+    *this << array_size(value.size());
 
     m_buffer.insert(m_buffer.end(), value.begin(), value.end());
 
@@ -23,7 +23,7 @@ oo::obstream &oo::obstream::operator<<(const std::vector<uint8_t> &value) {
 }
 
 oo::obstream &oo::obstream::operator<<(const uint8_t *value) {
-    const size_t size = *reinterpret_cast<size_t *>(m_buffer.data() + m_buffer.size() - sizeof(size_t));
+    const auto size = *reinterpret_cast<array_size *>(m_buffer.data() + m_buffer.size() - sizeof(array_size));
 
     m_buffer.insert(m_buffer.end(), value, value + size);
 
@@ -45,7 +45,7 @@ size_t oo::ibstream::get_size() const {
 }
 
 bool oo::ibstream::operator>>(std::vector<uint8_t> &value) {
-    size_t size;
+    array_size size;
     if (!(*this >> size)) {
         return false;
     }
@@ -61,7 +61,7 @@ bool oo::ibstream::operator>>(uint8_t *value) {
         return false;
     }
 
-    const size_t size = *reinterpret_cast<size_t *>(m_buffer.data() + m_index - sizeof(size_t));
+    const auto size = *reinterpret_cast<array_size *>(m_buffer.data() + m_index - sizeof(array_size));
     std::copy(m_buffer.begin() + m_index, m_buffer.begin() + m_index + size, value);
     m_index += size;
 
