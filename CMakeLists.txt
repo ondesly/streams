@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(streams
-        VERSION 1.1
+        VERSION 1.1.1
         LANGUAGES C CXX)
 
 set(CMAKE_XCODE_ATTRIBUTE_EXCLUDED_ARCHS[sdk=iphonesimulator*] "arm64") # Fix for Xcode project
