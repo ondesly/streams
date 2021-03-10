@@ -11,7 +11,6 @@ add_library(streams STATIC
         streams/bstream.cpp
         streams/zstream.cpp)
 
-add_library(oo::streams ALIAS streams)
 
 set_target_properties(streams PROPERTIES
         CXX_STANDARD 14

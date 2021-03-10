@@ -17,7 +17,7 @@ set_target_properties(test_b PROPERTIES
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO)
 
-target_link_libraries(test_b oo::streams)
+target_link_libraries(test_b streams)
 
 add_test(NAME TestB COMMAND test_b)
 
@@ -30,7 +30,7 @@ set_target_properties(test_a PROPERTIES
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO)
 
-target_link_libraries(test_a oo::streams)
+target_link_libraries(test_a streams)
 
 add_test(NAME TestA COMMAND test_a)
 
@@ -43,7 +43,7 @@ set_target_properties(test_z PROPERTIES
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO)
 
-target_link_libraries(test_z oo::streams)
+target_link_libraries(test_z streams)
 
 add_test(NAME TestZ COMMAND test_z)
 
@@ -56,6 +56,6 @@ set_target_properties(test_za PROPERTIES
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO)
 
-target_link_libraries(test_za oo::streams)
+target_link_libraries(test_za streams)
 
 add_test(NAME TestZA COMMAND test_za)
