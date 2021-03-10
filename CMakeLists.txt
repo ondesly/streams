@@ -18,6 +18,10 @@ set(CMAKE_XCODE_ATTRIBUTE_EXCLUDED_ARCHS[sdk=iphonesimulator*] "arm64") # Fix fo
 # Dependencies #
 ################
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
+
+#
+
 include(FetchContent)
 
 #
@@ -40,14 +44,20 @@ FetchContent_MakeAvailable(miniz tiny-aes-c)
 # Build #
 #########
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-
-find_package(Miniz REQUIRED)
-find_package(TinyAES REQUIRED)
-
-#
-
 add_subdirectory(src)
+
+###########
+# Install #
+###########
+
+include(GNUInstallDirs)
+
+install(TARGETS ${PROJECT_NAME} miniz tiny_aes
+        EXPORT ${PROJECT_NAME}-config
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${INSTALL_SUFFIX}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${INSTALL_SUFFIX}/${PROJECT_NAME})
+
+install(EXPORT ${PROJECT_NAME}-config DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
 ###########
 # Testing #
