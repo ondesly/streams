@@ -39,3 +39,18 @@ endif ()
 if (STREAMS_AES AND STREAMS_ZLIB)
     add("test_zl_a")
 endif ()
+
+if (STREAMS_ZLIB AND STREAMS_ZSTD)
+    FetchContent_Declare(
+            when
+            GIT_REPOSITORY https://github.com/ondesly/when.git
+            GIT_TAG v1.1.0
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE)
+
+    FetchContent_MakeAvailable(when)
+
+    add("test_z_comparison")
+
+    target_link_libraries(test_z_comparison when)
+endif ()
