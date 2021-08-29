@@ -24,6 +24,6 @@ endfunction()
 
 add("test_b")
 add("test_a")
-add("test_z")
+add("test_zl")
 add("test_zs")
-add("test_za")
+add("test_zl_a")

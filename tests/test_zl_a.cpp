@@ -1,5 +1,5 @@
 //
-//  test_za.cpp
+//  test_zl_a.cpp
 //  streams
 //
 //  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 17.01.2021.
@@ -7,7 +7,7 @@
 //
 
 #include <streams/astream.h>
-#include <streams/zstream.h>
+#include <streams/zlstream.h>
 
 namespace {
 
@@ -27,7 +27,7 @@ namespace {
 }
 
 int main() {
-    oo::ozstream oz;
+    oo::ozlstream oz;
     oo::oastream oa(key, iv);
 
     oz << std::vector<uint8_t>(c_text, c_text + 78);
@@ -45,7 +45,7 @@ int main() {
     //
 
     oo::iastream ia(key, iv);
-    oo::izstream iz;
+    oo::izlstream iz;
 
     ia << encoded;
     iz << ia;

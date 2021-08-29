@@ -1,5 +1,5 @@
 //
-//  zstream.h
+//  zlstream.h
 //  streams
 //
 //  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 30.10.2020.
@@ -14,7 +14,7 @@
 
 namespace oo {
 
-    class ozstream : public obstream {
+    class ozlstream : public obstream {
     public:
 
         using obstream::operator>>;
@@ -27,7 +27,7 @@ namespace oo {
 
 namespace oo {
 
-    class izstream : public ibstream {
+    class izlstream : public ibstream {
     public:
 
         using ibstream::operator<<;

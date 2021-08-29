@@ -1,5 +1,5 @@
 //
-//  zstream.cpp
+//  zlstream.cpp
 //  streams
 //
 //  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 30.10.2020.
@@ -13,11 +13,11 @@
 
 #include "miniz.h"
 
-#include "streams/zstream.h"
+#include "streams/zlstream.h"
 
-// -- ozstream --
+// -- ozlstream --
 
-void oo::ozstream::operator>>(std::vector<uint8_t> &value) {
+void oo::ozlstream::operator>>(std::vector<uint8_t> &value) {
     auto cmp_len = compressBound(m_buffer.size());
     value.resize(cmp_len);
 
@@ -29,7 +29,7 @@ void oo::ozstream::operator>>(std::vector<uint8_t> &value) {
     value.resize(cmp_len);
 }
 
-// -- izstream --
+// -- izlstream --
 
 namespace {
 
@@ -37,7 +37,7 @@ namespace {
 
 }
 
-void oo::izstream::operator<<(const std::vector<uint8_t> &value) {
+void oo::izlstream::operator<<(const std::vector<uint8_t> &value) {
     mz_stream stream;
     memset(&stream, 0, sizeof(stream));
 

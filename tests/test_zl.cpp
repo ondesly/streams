@@ -1,12 +1,12 @@
 //
-//  test_z.cpp
+//  test_zl.cpp
 //  streams
 //
 //  Created by Dmitrii Torkhov <dmitriitorkhov@gmail.com> on 16.01.2021.
 //  Copyright © 2021 Dmitrii Torkhov. All rights reserved.
 //
 
-#include <streams/zstream.h>
+#include <streams/zlstream.h>
 
 namespace {
 
@@ -21,7 +21,7 @@ namespace {
 }
 
 int main() {
-    oo::ozstream o;
+    oo::ozlstream o;
 
     o << std::vector<uint8_t>(c_text, c_text + 78);
     o << c_u8;
@@ -36,7 +36,7 @@ int main() {
 
     //
 
-    oo::izstream i;
+    oo::izlstream i;
     i << encoded;
 
     std::vector<uint8_t> text;

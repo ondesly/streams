@@ -14,7 +14,7 @@ find_package(TinyAES REQUIRED)
 add_library(streams STATIC
         streams/astream.cpp
         streams/bstream.cpp
-        streams/zstream.cpp
+        streams/zlstream.cpp
         streams/zsstream.cpp)
 
 target_link_libraries(streams PRIVATE miniz tiny_aes libzstd_static)
@@ -26,7 +26,7 @@ set(INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/../include)
 set(PUBLIC_HEADERS
         ${INCLUDE_DIR}/streams/astream.h
         ${INCLUDE_DIR}/streams/bstream.h
-        ${INCLUDE_DIR}/streams/zstream.h
+        ${INCLUDE_DIR}/streams/zlstream.h
         ${INCLUDE_DIR}/streams/zsstream.h)
 
 set_target_properties(streams PROPERTIES PUBLIC_HEADER "${PUBLIC_HEADERS}")
