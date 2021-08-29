@@ -34,6 +34,11 @@ void oo::ozsstream::operator>>(std::vector<uint8_t> &value) {
 
 void oo::izsstream::operator<<(const std::vector<uint8_t> &value) {
     const auto buf_len = ZSTD_getFrameContentSize(value.data(), value.size());
+
+    if (ZSTD_isError(buf_len)) {
+        return;
+    }
+
     m_buffer.resize(buf_len);
 
     const auto dcm_len = ZSTD_decompress(m_buffer.data(), m_buffer.size(),
