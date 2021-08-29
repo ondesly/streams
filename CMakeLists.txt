@@ -40,6 +40,26 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(miniz tiny-aes-c)
 
+#
+
+FetchContent_Declare(
+        zstd
+        GIT_REPOSITORY https://github.com/facebook/zstd.git
+        GIT_TAG v1.5.0
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE)
+
+option(ZSTD_MULTITHREAD_SUPPORT "MULTITHREADING SUPPORT" OFF)
+option(ZSTD_BUILD_PROGRAMS "BUILD PROGRAMS" OFF)
+option(ZSTD_BUILD_TESTS "BUILD TESTS" OFF)
+option(ZSTD_BUILD_SHARED "BUILD SHARED LIBRARIES" OFF)
+
+FetchContent_GetProperties(zstd)
+if(NOT zstd_POPULATED)
+    FetchContent_Populate(zstd)
+    add_subdirectory(${zstd_SOURCE_DIR}/build/cmake ${zstd_BINARY_DIR})
+endif()
+
 #########
 # Build #
 #########
