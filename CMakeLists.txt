@@ -12,8 +12,6 @@ project(streams
         VERSION 1.1.3
         LANGUAGES C CXX)
 
-set(CMAKE_XCODE_ATTRIBUTE_EXCLUDED_ARCHS[sdk=iphonesimulator*] "arm64") # Fix for Xcode project
-
 ################
 # Dependencies #
 ################
