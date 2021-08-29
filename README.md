@@ -3,6 +3,7 @@
 This is a tiny implementation of streams in C++ for:
  * Byte serialization
  * Zlib compression (based on richgel999's miniz)
+ * Zstandard compression (based on facebook's zstd)
  * AES encryption (based on kokke's tiny-AES-c)
 
 ## Examples
@@ -31,14 +32,34 @@ i >> u64;
 ### Zlib compression
 
 ```cpp
-oo::ozstream o;
+oo::ozlstream o;
 o << int32_t(1234567890);
 o << uint64_t(1000000000000000);
 
 std::vector<uint8_t> encoded;
 o >> encoded;
 
-oo::izstream i;
+oo::izlstream i;
+i << encoded;
+
+int32_t i32;
+i >> i32;
+
+uint64_t u64;
+i >> u64;
+```
+
+### Zstdandard compression
+
+```cpp
+oo::ozsstream o;
+o << int32_t(1234567890);
+o << uint64_t(1000000000000000);
+
+std::vector<uint8_t> encoded;
+o >> encoded;
+
+oo::izsstream i;
 i << encoded;
 
 int32_t i32;
@@ -73,4 +94,4 @@ i >> u64;
 
 ## Requirements
 
-This library requires a C++14 compiler and standard library.
+This library requires a C++17 compiler and standard library.
