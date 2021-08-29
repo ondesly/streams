@@ -15,7 +15,7 @@ function(add name)
 
     target_link_libraries(${name} streams)
 
-    set_target_properties(${name} PROPERTIES CXX_STANDARD 14 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
+    set_target_properties(${name} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 
     add_test(NAME ${name} COMMAND ${name})
 endfunction()
