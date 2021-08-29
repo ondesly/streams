@@ -12,6 +12,14 @@ project(streams
         VERSION 1.1.3
         LANGUAGES C CXX)
 
+###########
+# Options #
+###########
+
+option(STREAMS_AES "Enable AES stream" ON)
+option(STREAMS_ZLIB "Enable zlib stream" ON)
+option(STREAMS_ZSTD "Enable Zstandard stream" ON)
+
 ################
 # Dependencies #
 ################
@@ -24,39 +32,47 @@ include(FetchContent)
 
 #
 
-FetchContent_Declare(
-        miniz
-        URL https://github.com/richgel999/miniz/releases/download/2.1.0/miniz-2.1.0.zip)
+if (STREAMS_AES)
+    FetchContent_Declare(
+            tiny-aes-c
+            GIT_REPOSITORY https://github.com/kokke/tiny-AES-c.git
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE)
 
-FetchContent_Declare(
-        tiny-aes-c
-        GIT_REPOSITORY https://github.com/kokke/tiny-AES-c.git
-        GIT_SHALLOW TRUE
-        GIT_PROGRESS TRUE)
-
-#
-
-FetchContent_MakeAvailable(miniz tiny-aes-c)
+    FetchContent_MakeAvailable(tiny-aes-c)
+endif ()
 
 #
 
-FetchContent_Declare(
-        zstd
-        GIT_REPOSITORY https://github.com/facebook/zstd.git
-        GIT_TAG v1.5.0
-        GIT_SHALLOW TRUE
-        GIT_PROGRESS TRUE)
+if (STREAMS_ZLIB)
+    FetchContent_Declare(
+            miniz
+            URL https://github.com/richgel999/miniz/releases/download/2.1.0/miniz-2.1.0.zip)
 
-option(ZSTD_MULTITHREAD_SUPPORT "MULTITHREADING SUPPORT" OFF)
-option(ZSTD_BUILD_PROGRAMS "BUILD PROGRAMS" OFF)
-option(ZSTD_BUILD_TESTS "BUILD TESTS" OFF)
-option(ZSTD_BUILD_SHARED "BUILD SHARED LIBRARIES" OFF)
+    FetchContent_MakeAvailable(miniz)
+endif ()
 
-FetchContent_GetProperties(zstd)
-if(NOT zstd_POPULATED)
-    FetchContent_Populate(zstd)
-    add_subdirectory(${zstd_SOURCE_DIR}/build/cmake ${zstd_BINARY_DIR})
-endif()
+#
+
+if (STREAMS_ZSTD)
+    FetchContent_Declare(
+            zstd
+            GIT_REPOSITORY https://github.com/facebook/zstd.git
+            GIT_TAG v1.5.0
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE)
+
+    option(ZSTD_MULTITHREAD_SUPPORT "MULTITHREADING SUPPORT" OFF)
+    option(ZSTD_BUILD_PROGRAMS "BUILD PROGRAMS" OFF)
+    option(ZSTD_BUILD_TESTS "BUILD TESTS" OFF)
+    option(ZSTD_BUILD_SHARED "BUILD SHARED LIBRARIES" OFF)
+
+    FetchContent_GetProperties(zstd)
+    if (NOT zstd_POPULATED)
+        FetchContent_Populate(zstd)
+        add_subdirectory(${zstd_SOURCE_DIR}/build/cmake ${zstd_BINARY_DIR})
+    endif ()
+endif ()
 
 #########
 # Build #
@@ -70,7 +86,26 @@ add_subdirectory(src)
 
 include(GNUInstallDirs)
 
-install(TARGETS ${PROJECT_NAME} miniz tiny_aes
+#
+
+set(INSTALL_DEPENDENCIES)
+
+if (STREAMS_AES)
+    list(APPEND INSTALL_DEPENDENCIES
+            tiny_aes)
+endif ()
+
+if (STREAMS_ZLIB)
+    list(APPEND INSTALL_DEPENDENCIES
+            miniz)
+endif ()
+
+if (STREAMS_ZSTD)
+    list(APPEND INSTALL_DEPENDENCIES
+            libzstd_static)
+endif ()
+
+install(TARGETS ${PROJECT_NAME} ${INSTALL_DEPENDENCIES}
         EXPORT ${PROJECT_NAME}-config
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}${INSTALL_SUFFIX}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${INSTALL_SUFFIX}/${PROJECT_NAME})

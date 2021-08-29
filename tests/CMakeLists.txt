@@ -23,7 +23,19 @@ endfunction()
 #
 
 add("test_b")
-add("test_a")
-add("test_zl")
-add("test_zs")
-add("test_zl_a")
+
+if (STREAMS_AES)
+    add("test_a")
+endif ()
+
+if (STREAMS_ZLIB)
+    add("test_zl")
+endif ()
+
+if (STREAMS_ZSTD)
+    add("test_zs")
+endif ()
+
+if (STREAMS_AES AND STREAMS_ZLIB)
+    add("test_zl_a")
+endif ()
