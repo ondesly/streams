@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(streams
-        VERSION 1.1.3
+        VERSION 1.2.0
         LANGUAGES C CXX)
 
 ###########
