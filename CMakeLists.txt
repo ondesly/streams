@@ -47,8 +47,8 @@ endif ()
 if (STREAMS_ZLIB)
     FetchContent_Declare(
             miniz
-            URL https://github.com/richgel999/miniz/releases/download/2.1.0/miniz-2.1.0.zip
-            DOWNLOAD_EXTRACT_TIMESTAMP TRUE)
+            DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+            URL https://github.com/richgel999/miniz/releases/download/2.1.0/miniz-2.1.0.zip)
 
     FetchContent_MakeAvailable(miniz)
 endif ()
